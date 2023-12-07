@@ -1,4 +1,4 @@
-function Enemy(x, y, parent, player) {
+function Enemy(x, y, parent, player, enemies) {
   var self = this
   this.x = x
   this.y = y
@@ -29,6 +29,9 @@ function Enemy(x, y, parent, player) {
   this.removeEnemy = function() {
     parent.removeChild(this.sprite)
     clearInterval(this.timerId )
+    enemies = enemies.filter(function(enemy) {
+      return enemy !== self.sprite
+    })
   }
 
   this.checkCollision = function() {

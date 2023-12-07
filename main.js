@@ -1,6 +1,11 @@
 // Importaciones
 import { Player } from "./player.js"
 import { Enemy } from "./enemy.js"
+import { Bullet } from "./bullet.js"
+
+var backgroundMusic = new Audio("./sources/background-music.mp3")
+backgroundMusic.volume = 0.1
+backgroundMusic.play()
 
 // Elementos del juego
 var board = document.querySelector('#main-board')
@@ -9,11 +14,11 @@ var player = new Player(225, 750, board)
 player.insertPlayer()
 
 var enemies = []
+var bullets = []
 
 function createEnemy() {
   var randomX = Math.floor(Math.random() * 450)
-  console.log(randomX)
-  var enemy = new Enemy(randomX, 0, board, player)
+  var enemy = new Enemy(randomX, 0, board, player, enemies)
   enemy.insertEnemy()
   enemies.push(enemy)
 }
@@ -28,6 +33,12 @@ window.addEventListener( 'keydown', function(e) {
       break
     case 'd':
       player.direction = +1
+      break
+    case ' ':
+      var newBullet = new Bullet(player.x + 20, 735, board, enemies)
+      newBullet.insertBullet()
+      bullets.push(newBullet)
+      console.log(newBullet)
       break
   }
 })
@@ -46,7 +57,9 @@ function playerMovement() {
   if(player.isDead === true) {
     alert('GAME OVER')
     clearInterval(timerId)
-    clearInterval(enemy.timerId)
-    enemy.removeEnemy()
+    clearInterval(enemyGenTimer)
+    enemies.forEach(function(enemy) {
+      enemy.removeEnemy()
+    })
   }
 }

@@ -2,8 +2,11 @@ function Player(x, y, parent) {
   var self = this
   this.x = x
   this.y = y
+  this.width = 50
+  this.height = 50
   this.direction = 0
   this.speed = 5
+  this.isDead = false
 
   this.sprite
 

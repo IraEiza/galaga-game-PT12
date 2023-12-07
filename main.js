@@ -8,8 +8,17 @@ var board = document.querySelector('#main-board')
 var player = new Player(225, 750, board)
 player.insertPlayer()
 
-var enemy = new Enemy(50, 0, board)
-enemy.insertEnemy()
+var enemies = []
+
+function createEnemy() {
+  var randomX = Math.floor(Math.random() * 450)
+  console.log(randomX)
+  var enemy = new Enemy(randomX, 0, board, player)
+  enemy.insertEnemy()
+  enemies.push(enemy)
+}
+
+var enemyGenTimer = setInterval(createEnemy, 2000)
 
 // Controles
 window.addEventListener( 'keydown', function(e) {
@@ -30,4 +39,14 @@ window.addEventListener('keyup', function(e) {
 })
 
 // Movimiento
-var timerId = setInterval(player.move, 50)
+var timerId = setInterval(playerMovement, 50)
+
+function playerMovement() {
+  player.move()
+  if(player.isDead === true) {
+    alert('GAME OVER')
+    clearInterval(timerId)
+    clearInterval(enemy.timerId)
+    enemy.removeEnemy()
+  }
+}

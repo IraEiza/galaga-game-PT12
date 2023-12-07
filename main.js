@@ -5,7 +5,7 @@ function Player(x, y) {
   this.x = x
   this.y = y
   this.direction = 0
-  this.speed = 10
+  this.speed = 5
 
   this.sprite
 
@@ -19,8 +19,11 @@ function Player(x, y) {
   }
 
   this.move = function() {
-    self.x += self.speed * self.direction
-    self.sprite.style.left = self.x + 'px'
+    var nextX = self.x + self.speed * self.direction
+    if(nextX >= 0 && nextX <= 450) {
+      self.x += self.speed * self.direction
+      self.sprite.style.left = self.x + 'px'
+    }
   }
 }
 

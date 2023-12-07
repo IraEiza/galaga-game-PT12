@@ -1,9 +1,11 @@
 var board = document.querySelector('#main-board')
 
 function Player(x, y) {
+  var self = this
   this.x = x
   this.y = y
   this.direction = 0
+  this.speed = 10
 
   this.sprite
 
@@ -17,8 +19,8 @@ function Player(x, y) {
   }
 
   this.move = function() {
-    this.x += 10 * this.direction
-    this.sprite.style.left = this.x + 'px'
+    self.x += self.speed * self.direction
+    self.sprite.style.left = self.x + 'px'
   }
 }
 
@@ -26,7 +28,6 @@ var player = new Player(225, 750)
 player.insertPlayer()
 
 window.addEventListener( 'keydown', function(e) {
-  console.log(e.key)
   switch(e.key) {
     case 'a':
       player.direction = -1
@@ -35,5 +36,12 @@ window.addEventListener( 'keydown', function(e) {
       player.direction = +1
       break
   }
-  player.move()
 })
+
+window.addEventListener('keyup', function(e) {
+  if(e.key === 'a' || e.key === 'd') {
+    player.direction = 0
+  }
+})
+
+var timerId = setInterval(player.move, 50)

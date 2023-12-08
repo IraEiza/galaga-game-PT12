@@ -42,6 +42,11 @@ function Bullet(x, y, parent, enemies) {
         enemy.removeEnemy()
         enemies.splice(i, 1)
       }
+
+      if(enemy.y >= 850) {
+        enemy.removeEnemy()
+        enemies.splice(i, 1)
+      }
     })
   }
 

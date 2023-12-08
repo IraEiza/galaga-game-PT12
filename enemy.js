@@ -21,17 +21,17 @@ function Enemy(x, y, parent, player, enemies) {
     self.y += self.speed
     self.sprite.style.top = self.y + 'px'
     self.checkCollision()
-    if(self.y >= 850) {
-      self.removeEnemy()
-    }
+    //if(self.y >= 850) {
+    //  self.removeEnemy()
+    //}
   }
 
   this.removeEnemy = function() {
     parent.removeChild(this.sprite)
     clearInterval(this.timerId )
-    enemies = enemies.filter(function(enemy) {
-      return enemy !== self.sprite
-    })
+    //enemies = enemies.filter(function(enemy) {
+    //  return enemy !== self.sprite
+    //})
   }
 
   this.checkCollision = function() {
